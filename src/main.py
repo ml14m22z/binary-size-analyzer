@@ -5,7 +5,7 @@ import json
 
 def save_to_json(data, filename='output.json'):
     with open(filename, 'w') as jsonfile:
-        json.dump(data, jsonfile)
+        json.dump(data, jsonfile, indent=4)
 
 def main():
     if len(sys.argv) != 2:
@@ -16,11 +16,11 @@ def main():
     data = []
 
     if os.path.isfile(path):
-        data.extend(analyze_file(path))
+        data.append(analyze_file(path))
     elif os.path.isdir(path):
         for root, _, files in os.walk(path):
             for file in files:
-                data.extend(analyze_file(os.path.join(root, file)))
+                data.append(analyze_file(os.path.join(root, file)))
     else:
         print(f"{path} is not a valid file or directory")
 
