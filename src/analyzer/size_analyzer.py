@@ -8,9 +8,9 @@ class SizeAnalyzer:
         if not os.path.isfile(binary_path):
             raise FileNotFoundError(f"The binary file {binary_path} does not exist.")
         
-        # Check if the file is a binary file
-        if not helper.is_binary(binary_path):
-            raise ValueError(f"The file {binary_path} is not a binary file.")
+        # # Check if the file is a binary file
+        # if not helper.is_binary(binary_path):
+        #     raise ValueError(f"The file {binary_path} is not a binary file.")
 
         # Calculate the size of the binary file
         binary_size = helper.calculate_file_size(binary_path)

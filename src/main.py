@@ -1,4 +1,5 @@
 import math
+import os
 import sys
 from analyzer.size_analyzer import SizeAnalyzer
 
@@ -23,15 +24,25 @@ def convert_size(size_bytes):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python main.py <binary_file>")
+        print("Usage: python main.py <file_or_directory>")
         sys.exit(1)
 
-    binary_file = sys.argv[1]
-    analyzer = SizeAnalyzer()
-    size_info = analyzer.analyze_size(binary_file)
-    size_info = [convert_size(size) for size in size_info]  # Convert each size
+    path = sys.argv[1]
 
-    print(f"Size information for {binary_file}:")
+    if os.path.isfile(path):
+        analyze_file(path)
+    elif os.path.isdir(path):
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                analyze_file(os.path.join(root, file))
+    else:
+        print(f"{path} is not a valid file or directory")
+
+def analyze_file(file_path):
+    analyzer = SizeAnalyzer()
+    size_info = analyzer.analyze_size(file_path)
+    size_info = [convert_size(size) for size in size_info]  # Convert each size
+    print(f"Size information for {file_path}:")
     print(size_info)
 
 
