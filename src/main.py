@@ -2,7 +2,14 @@ import math
 import os
 import sys
 from analyzer.size_analyzer import SizeAnalyzer
+import csv
 
+def save_to_csv(data, filename='output.csv'):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['File Path', 'Size'])  # Write header
+        for row in data:
+            writer.writerow(row)
 
 def convert_size(size_bytes):
     """
@@ -28,15 +35,18 @@ def main():
         sys.exit(1)
 
     path = sys.argv[1]
-
+    data = []
+    
     if os.path.isfile(path):
-        analyze_file(path)
+        data.append(analyze_file(path))
     elif os.path.isdir(path):
-        for root, dirs, files in os.walk(path):
+        for root, _, files in os.walk(path):
             for file in files:
-                analyze_file(os.path.join(root, file))
+                data.append(analyze_file(os.path.join(root, file)))
     else:
         print(f"{path} is not a valid file or directory")
+
+    save_to_csv(data)
 
 def analyze_file(file_path):
     analyzer = SizeAnalyzer()
@@ -44,6 +54,7 @@ def analyze_file(file_path):
     size_info = [convert_size(size) for size in size_info]  # Convert each size
     print(f"Size information for {file_path}:")
     print(size_info)
+    return (file_path, size_info)
 
 
 if __name__ == "__main__":
