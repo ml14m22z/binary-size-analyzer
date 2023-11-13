@@ -1,5 +1,5 @@
 *.spec
-.csv
+*.csv
 .idea
 .vscode
 __pycache__
