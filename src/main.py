@@ -1,14 +1,11 @@
 import os
 import sys
 from analyzer.size_analyzer import SizeAnalyzer
-import csv
+import json
 
-def save_to_csv(data, filename='output.csv'):
-    with open(filename, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['File Path', 'Size'])  # Write header
-        for row in data:
-            writer.writerow(row)
+def save_to_json(data, filename='output.json'):
+    with open(filename, 'w') as jsonfile:
+        json.dump(data, jsonfile)
 
 def main():
     if len(sys.argv) != 2:
@@ -27,7 +24,7 @@ def main():
     else:
         print(f"{path} is not a valid file or directory")
 
-    save_to_csv(data)
+    save_to_json(data)
 
 def analyze_file(file_path):
     analyzer = SizeAnalyzer()
