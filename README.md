@@ -43,6 +43,14 @@ To run the unit tests, use the following command:
 python -m unittest discover tests
 ```
 
+## Creating an Executable
+
+You can use PyInstaller to create a standalone executable for this project. Here's how you can do it:
+
+```bash
+pyinstaller --onefile -p . src/main.py
+```
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
