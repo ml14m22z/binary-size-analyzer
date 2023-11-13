@@ -36,7 +36,7 @@ def find_dependencies(file_path):
     dependencies = []
     for line in output.decode().split('\n'):
         if '=>' in line:
-            dependency = line.split('=>')[0].strip()
+            dependency = line.split('=>')[1].split('(')[0].strip()
             if dependency:
                 dependencies.append(dependency)
 
