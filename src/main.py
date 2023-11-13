@@ -1,6 +1,7 @@
 import sys
 from analyzer.size_analyzer import SizeAnalyzer
 
+
 def main():
     if len(sys.argv) != 2:
         print("Usage: python main.py <binary_file>")
@@ -12,6 +13,7 @@ def main():
 
     print(f"Size information for {binary_file}:")
     print(size_info)
+
 
 if __name__ == "__main__":
     main()

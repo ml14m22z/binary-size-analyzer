@@ -1,5 +1,6 @@
 import os
 
+
 def read_binary_file(file_path):
     """
     This function reads a binary file and returns its content.
@@ -7,11 +8,13 @@ def read_binary_file(file_path):
     with open(file_path, 'rb') as file:
         return file.read()
 
-def calculate_size(file_path):
+
+def calculate_file_size(file_path):
     """
     This function calculates the size of a file in bytes.
     """
     return os.path.getsize(file_path)
+
 
 def find_dependencies(file_path):
     """
