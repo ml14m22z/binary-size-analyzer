@@ -22,3 +22,19 @@ def find_dependencies(file_path):
     For simplicity, let's assume it returns an empty list for now.
     """
     return []
+
+def is_binary(file_path):
+    """
+    Check if a file is binary.
+
+    Args:
+        file_path (str): The path to the file.
+
+    Returns:
+        bool: True if the file is binary, False otherwise.
+    """
+    with open(file_path, 'rb') as file:
+        for chunk in iter(lambda: file.read(1024), b''):
+            if b'\0' in chunk:  # Null bytes are a good indicator of binary files
+                return True
+    return False

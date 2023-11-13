@@ -29,6 +29,7 @@ pip install -r requirements.txt
 To use the Binary Size Analyzer, run the `main.py` script with the path to the binary program as an argument:
 
 ```bash
+export PYTHONPATH="${PYTHONPATH}:${PWD}"
 python src/main.py /path/to/binary
 ```
 

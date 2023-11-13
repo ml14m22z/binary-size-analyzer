@@ -21,7 +21,7 @@ class TestSizeAnalyzer(unittest.TestCase):
 
         # Test with a non-existing file
         with self.assertRaises(FileNotFoundError):
-            self.analyzer.analyze_size('/')
+            self.analyzer.analyze_size('/a')
 
 
 if __name__ == '__main__':
