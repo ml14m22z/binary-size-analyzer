@@ -1,6 +1,7 @@
+*.spec
+.csv
 .idea
 .vscode
 __pycache__
-*.spec
 build
 dist

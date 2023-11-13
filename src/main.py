@@ -36,13 +36,13 @@ def main():
 
     path = sys.argv[1]
     data = []
-    
+
     if os.path.isfile(path):
-        data.append(analyze_file(path))
+        data.extend(analyze_file(path))
     elif os.path.isdir(path):
         for root, _, files in os.walk(path):
             for file in files:
-                data.append(analyze_file(os.path.join(root, file)))
+                data.extend(analyze_file(os.path.join(root, file)))
     else:
         print(f"{path} is not a valid file or directory")
 
@@ -51,10 +51,7 @@ def main():
 def analyze_file(file_path):
     analyzer = SizeAnalyzer()
     size_info = analyzer.analyze_size(file_path)
-    size_info = [convert_size(size) for size in size_info]  # Convert each size
-    print(f"Size information for {file_path}:")
-    print(size_info)
-    return (file_path, size_info)
+    return size_info
 
 
 if __name__ == "__main__":
