@@ -2,6 +2,7 @@ import os
 import sys
 from analyzer.size_analyzer import SizeAnalyzer
 import json
+from src.utils import helper
 
 def save_to_json(data, filename='output.json'):
     with open(filename, 'w') as jsonfile:
@@ -16,11 +17,13 @@ def main():
     data = []
 
     if os.path.isfile(path):
-        data.append(analyze_file(path))
+        if helper.is_binary(path):
+            data.append(analyze_file(path))
     elif os.path.isdir(path):
         for root, _, files in os.walk(path):
             for file in files:
-                data.append(analyze_file(os.path.join(root, file)))
+                if helper.is_binary(os.path.join(root, file)):
+                    data.append(analyze_file(os.path.join(root, file)))
     else:
         print(f"{path} is not a valid file or directory")
 
