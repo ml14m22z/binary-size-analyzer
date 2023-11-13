@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 
 def read_binary_file(file_path):
@@ -19,9 +20,27 @@ def calculate_file_size(file_path):
 def find_dependencies(file_path):
     """
     This function finds the dependencies of a binary file.
-    For simplicity, let's assume it returns an empty list for now.
+
+    Args:
+        file_path (str): The path to the binary file.
+
+    Returns:
+        list: A list of dependencies for the binary file.
     """
-    return []
+    try:
+        output = subprocess.check_output(['ldd', file_path], stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as e:
+        # If ldd fails, return an empty list
+        return []
+
+    dependencies = []
+    for line in output.decode().split('\n'):
+        if '=>' in line:
+            dependency = line.split('=>')[0].strip()
+            if dependency:
+                dependencies.append(dependency)
+
+    return dependencies
 
 def is_binary(file_path):
     """
