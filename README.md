@@ -48,7 +48,7 @@ python -m unittest discover tests
 You can use PyInstaller to create a standalone executable for this project. Here's how you can do it:
 
 ```bash
-pyinstaller --onefile -p . src/main.py
+pyinstaller --onefile -p . src/main.py -n binary_size_analyzer
 ```
 
 ## Contributing
