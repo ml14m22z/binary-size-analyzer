@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 from analyzer.size_analyzer import SizeAnalyzer
@@ -9,20 +10,22 @@ def save_to_json(data, filename='output.json'):
         json.dump(data, jsonfile, indent=4)
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python main.py <file_or_directory>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description='Analyze file sizes.')
+    parser.add_argument('path', help='The file or directory to analyze.')
+    parser.add_argument('--filter', nargs='*', default=[], help='The file extensions to exclude.')
+    args = parser.parse_args()
 
-    path = sys.argv[1]
+    path = args.path
+    filters = args.filter
     data = []
 
     if os.path.isfile(path):
-        if helper.is_binary(path):
+        if helper.is_binary(path) and not any(path.endswith(f) for f in filters):
             data.append(analyze_file(path))
     elif os.path.isdir(path):
         for root, _, files in os.walk(path):
             for file in files:
-                if helper.is_binary(os.path.join(root, file)):
+                if helper.is_binary(os.path.join(root, file)) and not any(file.endswith(f) for f in filters):
                     data.append(analyze_file(os.path.join(root, file)))
     else:
         print(f"{path} is not a valid file or directory")
