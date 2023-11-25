@@ -12,7 +12,19 @@ def save_to_json(data, filename='output.json'):
 
 def save_to_excel(data, filename='output.xlsx'):
     df = pd.DataFrame(data)
-    df.to_excel(filename, index=False)
+    df['binary_path'] = df['binary_path'].apply(lambda x: os.path.basename(x))
+    def extract_file_names(deps):
+        return [os.path.basename(dep['dep']) for dep in deps]
+
+    all_deps = list(set(df['deps'].apply(extract_file_names).sum()))
+
+    df['deps'] = df['deps'].apply(extract_file_names)
+
+    for dep in all_deps:
+        df[dep] = df['deps'].apply(lambda x: '√' if dep in x else '')
+
+    df = df.drop(columns=['deps'])
+    df.to_excel(filename, index=True)
 
 def main():
     parser = argparse.ArgumentParser(description='Analyze file sizes.')
