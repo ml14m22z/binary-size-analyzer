@@ -33,4 +33,4 @@ $ ldd UnionTopic
 
 Conclusion: The LD_LIBRARY_PATH not set!
 
-Close.
+Open.
