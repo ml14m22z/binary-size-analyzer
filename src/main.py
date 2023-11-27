@@ -30,7 +30,7 @@ def save_to_excel(data, filename='output.xlsx'):
         df[dep] = df['deps'].apply(lambda x: '√' if dep in x else '')
 
     df = df.drop(columns=['deps'])
-    df.to_excel(filename, index=True)
+    df.to_excel(filename, index=True, sheet_name='binary')
 
 def main():
     parser = argparse.ArgumentParser(description='Analyze file sizes.')

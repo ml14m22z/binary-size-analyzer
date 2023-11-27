@@ -4,3 +4,4 @@
 - [x] Add option of `--filter` to filter out the file name contains `.o` and `.so` for example
 - [x] Add option of `--format` to output `.xlsx` format file
 - [x] Write a recover size function to convert a file size in human-readable format to bytes
+- [x] Change the page name of the output xlsx file
