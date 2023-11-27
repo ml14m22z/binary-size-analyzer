@@ -13,6 +13,12 @@ def save_to_json(data, filename='output.json'):
 def save_to_excel(data, filename='output.xlsx'):
     df = pd.DataFrame(data)
     df['binary_path'] = df['binary_path'].apply(lambda x: os.path.basename(x))
+
+    def extract_deps_size(deps):
+        return helper.convert_size(sum([helper.recover_size(dep['dep_size']) for dep in deps]))
+    
+    df['deps_size'] = df['deps'].apply(extract_deps_size)
+
     def extract_file_names(deps):
         return [os.path.basename(dep['dep']) for dep in deps]
 

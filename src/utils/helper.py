@@ -76,3 +76,20 @@ def convert_size(size_bytes):
     p = math.pow(1024, i)
     s = round(size_bytes / p, 2)
     return f"{s} {size_name[i]}"
+
+def recover_size(size_str):
+    """
+    Convert a file size in human-readable format to bytes.
+
+    Args:
+        size_str (str): The file size in a human-readable format.
+
+    Returns:
+        int: The file size in bytes.
+    """
+    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+    size, unit = size_str.split()
+    size = float(size)
+    unit_index = size_name.index(unit)
+    size_bytes = size * math.pow(1024, unit_index)
+    return int(size_bytes)
